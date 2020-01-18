@@ -51,7 +51,7 @@ public class TaskController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> remove(@RequestParam(name = "id") Long id){
+	public ResponseEntity<?> remove(@PathVariable("id") long id){
 		service.remove(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
