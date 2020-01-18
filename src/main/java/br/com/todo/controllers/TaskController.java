@@ -2,7 +2,6 @@ package br.com.todo.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,12 +9,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.todo.domain.Task;
 import br.com.todo.service.TaskService;
 
-@Controller
-@RequestMapping("/task/")
+@RestController
+@RequestMapping("api/v1/task")
 public class TaskController {
 	
 	private TaskService service;
@@ -43,7 +43,7 @@ public class TaskController {
 		return new ResponseEntity<>(task,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> remove(@RequestParam(name = "id") Long id){
 		service.remove(id);
 		return new ResponseEntity<>(HttpStatus.OK);
