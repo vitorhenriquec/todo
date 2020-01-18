@@ -21,7 +21,7 @@ public class Task implements Serializable{
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long id;
+	public long id;
 	
 	@Column(columnDefinition="text")
 	public String description;
@@ -31,17 +31,17 @@ public class Task implements Serializable{
 	
 	public Task() {}
 
-	public Task(Long id, String description, boolean active) {
+	public Task(long id, String description, boolean active) {
 		this.id = id;
 		this.description = description;
 		this.active = active;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -70,7 +70,7 @@ public class Task implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -83,11 +83,9 @@ public class Task implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Task other = (Task) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		return true;
 	}
+
 }
