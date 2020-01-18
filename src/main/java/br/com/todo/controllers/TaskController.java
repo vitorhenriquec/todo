@@ -39,13 +39,15 @@ public class TaskController {
 		return new ResponseEntity<>(task,HttpStatus.OK);
 	}
 	
-	@PutMapping
-	public ResponseEntity<?> update(@RequestBody Task task){
-		Task taskSaved = service.save(task);
-		if(taskSaved == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(task,HttpStatus.OK);
+	@SuppressWarnings("rawtypes")
+	@PutMapping("/{id}")
+	public ResponseEntity update(@PathVariable("id") long id, @RequestBody Task task){
+		return service.searchItem(id).map( (taskUpdated) -> {
+			taskUpdated.setDescription(task.getDescription());
+			taskUpdated.setActive(task.isActive());
+			service.update(taskUpdated);
+			return ResponseEntity.ok().body(taskUpdated);
+		}).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@DeleteMapping("/{id}")
