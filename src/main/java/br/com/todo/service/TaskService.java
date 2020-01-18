@@ -1,34 +1,39 @@
 package br.com.todo.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.todo.domain.Task;
 import br.com.todo.repository.TaskRepository;
-import br.com.todo.utils.Service;
 
-public class TaskService implements Service<Task>{
+@Service
+public class TaskService{
 
 	@Autowired
 	private TaskRepository repository;
 	
-	@Override
+	
 	public Task save(Task element){
 		return repository.save(element);
 	}
 
-	@Override
 	public Task update(Task element){
 		return repository.save(element);
 	}
 	
-	@Override
-	public Iterable<Task> listAll()	{
+	public List<Task> listAll(){
 		return repository.findAll();
 	}
 
-	@Override
-	public void remove(Long id){
+	public void remove(long id){
 		repository.deleteById(id);
+	}
+	
+	public Optional<Task> searchItem(long id) {
+		return repository.findById(id);
 	}
 		
 }
