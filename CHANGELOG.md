@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.1] - 19/01/2020
 
 ### Added
 - CrossOrigin
