@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import br.com.todo.domain.Task;
 import br.com.todo.service.TaskService;
 
 @RestController
+@CrossOrigin
 @RequestMapping({"api/v1/task"})
 public class TaskController {
 	
@@ -40,10 +42,9 @@ public class TaskController {
 	
 	@SuppressWarnings("rawtypes")
 	@PutMapping("/{id}")
-	public ResponseEntity update(@PathVariable("id") long id, @RequestBody Task task){
+	public ResponseEntity updateActive(@PathVariable("id") long id){
 		return service.searchItem(id).map( (taskUpdated) -> {
-			taskUpdated.setDescription(task.getDescription());
-			taskUpdated.setActive(task.isActive());
+			taskUpdated.setActive(!taskUpdated.isActive());
 			service.update(taskUpdated);
 			return ResponseEntity.ok().body(taskUpdated);
 		}).orElse(ResponseEntity.notFound().build());
