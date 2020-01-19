@@ -3,8 +3,10 @@
 ## [Unreleased]
 
 ### Added
+- CrossOrigin
 
 ### Changed
+- Update method to only change active status
 
 ### Fixed
 
